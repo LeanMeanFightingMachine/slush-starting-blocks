@@ -16,6 +16,10 @@
     "browserify"
   ],
   "author": "Lucas Motta <mail@lucasmotta.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeanMeanFightingMachine/slush-starting-blocks"
+  },
   "license": "ISC",
   "dependencies": {
     "gulp": "^3.8.10",
