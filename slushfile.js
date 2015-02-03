@@ -40,7 +40,7 @@ gulp.task( 'default', function( done ) {
         if ( !answers.moveon ) {
           return done();
         }
-        gulp.src( __dirname + '/template/**' )
+        gulp.src( __dirname + '/template/**', { dot:true } )
           .pipe( template( answers ) )
           .pipe( conflict( './' ) )
           .pipe( gulp.dest( './' ) )
