@@ -13,8 +13,9 @@ gulp.task "server", ["stylus", "coffee"], ->
     open: false
     files: [
       "#{settings.path.public.css}/*.css"
-      "#{settings.path.public.js}/*.js"
-      "./**/*.html"
+			"#{settings.path.public.js}/*.js"
+			"#{settings.path.public.root}/**/*.html"
+			"#{settings.path.source.html}/**/*.html"
     ]
     server:
       baseDir: settings.path.public.root

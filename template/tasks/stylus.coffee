@@ -35,7 +35,7 @@ stylusError = (error) ->
   gutil.log gutil.colors.red("Stylus Error:\n"), gutil.colors.red(error.name + "\n"), error.message
 
   notifier.notify
-    title: "Rubber Tracks"
+    title: "<%= project %>"
     message: "Error compiling Stylus"
     icon: "#{settings.path.root}/branding.png"
     sound: "Basso"
