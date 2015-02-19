@@ -14,7 +14,7 @@ settings    = require "./settings"
 
 
 gulp.task "coffee", ->
-  js_output = settings.entry.js.split(".coffee").join(".js")
+  output = settings.entry.js.split(".coffee").join(".js")
   debug = settings.debug
 
   bundler = browserify
@@ -34,10 +34,10 @@ gulp.task "coffee", ->
   bundle = ->
     bundler.bundle()
       .on "error", coffeeError
-      .pipe source(js_output)
-      .pipe gulpif !debug, streamify(uglify())
+      .pipe source(output)
+      .pipe gulpif(!debug, streamify(uglify()))
       .pipe duration("watchify > script")
-      .pipe gulp.dest settings.path.public.js
+      .pipe gulp.dest(settings.path.public.js)
 
   bundler = watchify bundler
   bundler.on "update", bundle
@@ -47,7 +47,7 @@ coffeeError = (error) ->
   gutil.log gutil.colors.red("CoffeeScript Error:"), error
 
   notifier.notify
-    title: "Rubber Tracks"
+    title: "<%= project %>"
     message: "Error compiling CoffeeScript"
     icon: "#{settings.path.root}/branding.png"
     sound: "Basso"
