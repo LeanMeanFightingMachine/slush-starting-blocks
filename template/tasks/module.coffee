@@ -32,7 +32,7 @@ gulp.task "module", (cb) ->
       generate_js_app()
 
       notifier.notify
-        title: "Rubber Tracks"
+        title: "<%= project %>"
         message: "The component #{name} was deleted."
         icon: "#{settings.path.root}/branding.png"
         sound: "Glass"
@@ -49,7 +49,7 @@ gulp.task "module", (cb) ->
     generate_js_app()
 
     notifier.notify
-      title: "Rubber Tracks"
+      title: "<%= project %>"
       message: "The component #{name} was created!"
       icon: "#{settings.path.root}/branding.png"
       sound: "Glass"
@@ -77,7 +77,7 @@ check_module_exists = (name, paths) ->
     gutil.log gutil.colors.red("Module Error:"), message
 
     notifier.notify
-      title: "Rubber Tracks"
+      title: "<%= project %>"
       message: message
       icon: "#{settings.path.root}/branding.png"
       sound: "Basso"
@@ -88,7 +88,7 @@ check_module_exists = (name, paths) ->
     gutil.log gutil.colors.red("Module Error:"), message
 
     notifier.notify
-      title: "Rubber Tracks"
+      title: "<%= project %>"
       message: message
       icon: "#{settings.path.root}/branding.png"
       sound: "Basso"
@@ -99,7 +99,7 @@ check_module_exists = (name, paths) ->
     gutil.log gutil.colors.red("Module Error:"), message
 
     notifier.notify
-      title: "Rubber Tracks"
+      title: "<%= project %>"
       message: message
       icon: "#{settings.path.root}/branding.png"
       sound: "Basso"
