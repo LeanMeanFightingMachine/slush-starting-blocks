@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-Install `slush and it's dependencies` globally:
+Install `slush` and it's dependencies globally:
 
 ```bash
 $ npm install -g bower
