@@ -17,7 +17,6 @@
     "del": "^1.1.x",
     "dploy": "^1.x.x",
     "envify": "^3.2.x",
-    "execSync": "^1.0.x",
     "fs-extra": "^0.12.x",
     "glob": "^4.3.x",
     "glob-expand": "0.0.2",

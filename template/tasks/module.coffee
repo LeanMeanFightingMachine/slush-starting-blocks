@@ -6,7 +6,7 @@ del      = require "del"
 gulp     = require "gulp"
 gutil    = require "gulp-util"
 notifier = require "node-notifier"
-sh       = require "execSync"
+sh       = require("child_process").execSync
 
 
 settings    = require "./settings"
@@ -59,8 +59,8 @@ gulp.task "module", (cb) ->
 
 
 get_user = ->
-  name = sh.exec("git config --get user.name").stdout.replace("\n", "")
-  email = sh.exec("git config --get user.email").stdout.replace("\n", "")
+  name = sh.exec("git config --get user.name", { encoding: "utf8" }).replace("\n", "")
+  email = sh.exec("git config --get user.email", { encoding: "utf8" }).replace("\n", "")
   name: name, email: email
 
 
