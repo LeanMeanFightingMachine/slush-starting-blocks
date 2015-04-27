@@ -1,13 +1,36 @@
 //////////////////////////////////////////////////
-// Settings, mixins and helpers
+// Settings
 //////////////////////////////////////////////////
-@import "helpers/variables"
-@import "helpers/mixins"
+@import "inuit-defaults/settings.defaults";
+@import "inuit-responsive-settings/settings.responsive";
+@import "settings.global";
+@import "settings.typography";
+@import "settings.colors";
+
+//////////////////////////////////////////////////
+// Tools
+//////////////////////////////////////////////////
+@import "inuit-functions/tools.functions";
+@import "inuit-mixins/tools.mixins";
+@import "inuit-responsive-tools/tools.responsive";
+@import "tools.mixins";
+@import "tools.module";
+
+//////////////////////////////////////////////////
+// Generic
+//////////////////////////////////////////////////
+@import "inuit-normalize/generic.normalize";
+@import "inuit-reset/generic.reset";
+@import "inuit-box-sizing/generic.box-sizing";
+@import "inuit-shared/generic.shared";
 
 //////////////////////////////////////////////////
 // Base
 //////////////////////////////////////////////////
-@import "base/reset"
+@import "inuit-base/base.page"
+@import "inuit-paragraphs/base.paragraphs"
+@import "inuit-headings/base.headings"
+@import "inuit-images/base.images"
 @import "base/body"
 @import "base/typography"
 
