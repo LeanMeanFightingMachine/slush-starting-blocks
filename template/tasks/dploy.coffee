@@ -5,7 +5,7 @@ dploy    = require "dploy"
 inquirer = require "inquirer"
 YAML     = require "yamljs"
 When     = require "when"
-execSync = require "execSync"
+execSync = require("child_process").execSync
 
 
 settings    = require "./settings"
