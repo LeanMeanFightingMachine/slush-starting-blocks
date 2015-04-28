@@ -1,12 +1,19 @@
 # slush-starting-blocks
-> Front-end kickstarter with: CoffeeScript, Stylus, Browserify, Ractive and much more.
+> Front-end kickstarter with: JavaScript, Sass/SCSS, Browserify, Ractive and much more :)
 
 
 ## Getting Started
 
-Install `slush` globally:
+Make sure you have **node** installed, if not install the latest `0.12.0` version:
+
+```
+brew install node
+```
+
+Install `slush` and it's dependencies globally:
 
 ```bash
+$ npm install -g gulp
 $ npm install -g slush
 ```
 
