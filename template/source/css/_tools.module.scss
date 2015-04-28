@@ -6,6 +6,7 @@
  *       String $extend     The class you want to extend (optional)
  *       String $silent     If the class should be silent or not,
  *       										most of the times it's useful for abstract modules
+ *
  */
 @mixin module($name, $args: ()) {
   $i: ".";

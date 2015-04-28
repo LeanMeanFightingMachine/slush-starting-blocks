@@ -5,25 +5,25 @@ We are using [Ractive components](http://docs.ractivejs.org/latest/components) t
 To create a new module, just run the following command:
 
 ```shell
-gulp module --add your-module
+gulp module --add=your-module
 ```
 
 If you need to extend another module, just separate the file you want to extend with a colon:
 
 ```shell
-gulp module --add your-module:another-existing-module
+gulp module --add=your-module:another-existing-module
 ```
 
-#### Stylus
-A new file `your-module.styl` will be created inside the **module** folder in your CSS source folder.
-Also, the `index.styl` inside the module folder will be updated to import your new module, so you **don't have to do it manually**.
+#### Sass
+A new file `your-module.sass` will be created inside the **module** folder in your CSS source folder.
+Also, the `index.sass` inside the module folder will be updated to import your new module, so you **don't have to do it manually**.
 
-#### CoffeeScript
-A new file `your-module.coffee` will be created inside the **module** folder in your JS source folder.
-Also, the `index.coffee` inside the module folder will be updated to register this new component inside Ractive, so you **don't have to do it manually**. The prefix `ui-` will be added to your module.
+#### JavaScript
+A new file `your-module.js` will be created inside the **module/your-module** folder in your JS source folder.
+Also, the `index.js` inside the module folder will be updated to register this new component inside Ractive, so you **don't have to do it manually**. The prefix `ui-` will be added to your module.
 
 #### HTML/Ractive Template
-A new file `your-module.html` will be created inside the **template** folder.
+A new file `your-module.html` will be created inside the **module/your-module** folder in your JS source folder.
 
 
 ## Using modules
@@ -46,7 +46,7 @@ You can read more about components on [Ractive's documentation](http://docs.ract
 If by any reason you need to delete a module, just run:
 
 ```shell
-gulp module --remove your-module
+gulp module --remove=your-module
 ```
 
 And all files related to this module will be deleted.
