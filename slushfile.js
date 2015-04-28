@@ -1,53 +1,48 @@
-var gulp     = require( 'gulp' ),
-    install  = require( 'gulp-install' ),
-    conflict = require( 'gulp-conflict' ),
-    template = require( 'gulp-template' ),
-    inquirer = require( 'inquirer' ),
-    slug     = require( 'slug' ),
-    exec     = require( 'child_process' ).exec;
+var gulp     = require('gulp'),
+    install  = require('gulp-install'),
+    conflict = require('gulp-conflict'),
+    template = require('gulp-template'),
+    inquirer = require('inquirer'),
+    slug     = require('slug'),
+    exec     = require('child_process').execSync;
 
-gulp.task( 'default', function( done ) {
-  error_empty = function( answer ) {
-    return answer.replace( / /g, '' ) !== ''
-  }
 
-  inquirer.prompt([
-    {
-      type: 'input',
-      name: 'project',
-      message: 'Project\'s name?',
-      validate: error_empty
-    },
-    {
-      type: 'input',
-      name: 'client',
-      message: 'Client\'s name?',
-      validate: error_empty
-    },
-    {
-      type: 'confirm',
-      name: 'moveon',
-      message: 'Continue?'
+function isEmpty(answer) {
+  return answer.replace(/ /g, '') !== '';
+}
+
+function getAuthor() {
+  var stdout = exec('git config user.name && git config user.email', { encoding:"utf8" }).split('\n');
+  return stdout[ 0 ] + ' <' + stdout[ 1 ] + '>';
+}
+
+function getShortName(obj) {
+  var client = obj.client.toLowerCase();
+  var project = obj.project.toLowerCase();
+  return slug(client) + '_' + slug(project);
+}
+
+var questions = [
+  { name:'project', message:'Project\'s name?', validate:isEmpty },
+  { name:'client', message:'Client\'s name?', validate:isEmpty },
+  { name:'moveon', message:'Continue?', type:'confirm' }
+];
+
+gulp.task('default', function (done) {
+  inquirer.prompt(questions, function (answers) {
+    if (!answers.moveon) {
+      return done();
     }
-  ], function( answers ) {
 
-      var cmd = 'git config user.name && git config user.email';
-      exec( cmd, function( err, stdout ) {
-        data = stdout.split( '\n' );
-        answers.author = data[ 0 ] + ' <' + data[ 1 ] + '>';
-        answers.short_name = slug( answers.client.toLowerCase() ) + '_' + slug( answers.project.toLowerCase() );
+    answers.author = getAuthor();
+    answers.shortName = getShortName(answers);
 
-        if ( !answers.moveon ) {
-          return done();
-        }
-        gulp.src( __dirname + '/template/**', { dot:true } )
-          .pipe( template( answers ) )
-          .pipe( conflict( './' ) )
-          .pipe( gulp.dest( './' ) )
-          .pipe( install() )
-          .on( 'finish', function() {
-            done();
-          });
-      });
-    });
+    gulp.src(__dirname + '/template/**', { dot:true })
+      .pipe(template(answers))
+      .pipe(conflict('./'))
+      .pipe(gulp.dest('./'))
+      .pipe(install())
+      .on('end', done)
+      .resume();
+  });
 });

@@ -5,11 +5,11 @@
 #### [HTML (Hyper Text Markup Language)](http://www.w3schools.com/html/)
 > A markup language that uses tags to describe web pages.
 
-#### [Stylus](https://github.com/LearnBoost/stylus)
-> Stylus is a new language, providing an efficient, dynamic, and expressive way to generate CSS. Supporting both an indented syntax and regular CSS style.
+#### [Sass](http://sass-lang.com)
+> Sass is a scripting language that is interpreted into Cascading Style Sheets (CSS)
 
 #### [CoffeeScript](http://coffeescript.org)
-> CoffeeScript is a programming language that predictably compiles to JavaScript. Programs can be written with less code and in more human-readable terms, without sacrificing runtime performance, compared with JavaScript.
+> An object-oriented computer programming language commonly used to create interactive effects within web browsers.
 
 
 #### [JSON](http://www.json.org)
@@ -28,6 +28,3 @@
 
 #### [Ractive.js](http://ractivejs.org/)
 > It's a JavaScript library for building reactive user interfaces in a way that doesn't force you into a particular framework's way of thinking.
-
-#### [Google Maps API](https://developers.google.com/maps/documentation/javascript/)
-> Google Maps is a Web-based service that provides detailed information about geographical regions and sites around the world.
