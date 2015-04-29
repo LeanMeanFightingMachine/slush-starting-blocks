@@ -3,6 +3,7 @@ var fs = require('fs-extra');
 var path = require('path');
 var del = require('del');
 var minstache = require('minstache');
+var changeCase = require('change-case');
 
 
 function resolve(p) {
@@ -117,7 +118,8 @@ task.rebuild = function(cb) {
 
     var file = path.relative('./source/js/module', url);
     var name = path.basename(file, '.js');
-    return { name: name, file: file };
+    var nameCamel = changeCase.camelCase(name);
+    return { name:name, nameCamel: nameCamel, file: file };
 
   });
 
@@ -125,7 +127,8 @@ task.rebuild = function(cb) {
 
     var file = path.relative('./source/css/module', url);
     var name = path.basename(file, '.scss');
-    return { name: name, file: file };
+    var nameCamel = changeCase.camelCase(name);
+    return { name:name, nameCamel: nameCamel, file: file };
 
   });
 

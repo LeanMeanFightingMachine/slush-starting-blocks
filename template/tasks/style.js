@@ -33,21 +33,21 @@ function npmModule(url, file, done) {
 
     newPath = path.relative('./source/css', require.resolve(url));
     aliases[url] = newPath;
-    return done({ file: newPath });
+    done({ file: newPath });
 
   } catch (e) {
-    // continue
+
+    // if not, try looking if the file inside the `node_modules` exists
+    absolute = path.join(process.cwd(), 'node_modules', url);
+    relative = path.relative('./source/css', absolute).replace(/\.css$/g, '');
+    fs.access(absolute, fs.R_OK, function(err) {
+
+      aliases[url] = err ? url : relative;
+      done(aliases[url]);
+
+    });
+
   }
-
-  // if not, try looking if the file inside the `node_modules` exists
-  absolute = path.join(process.cwd(), 'node_modules', url);
-  relative = path.relative('./source/css', absolute).replace(/\.css$/g, '');
-  fs.access(absolute, fs.R_OK, function(err) {
-
-    aliases[url] = err ? url : relative;
-    done(aliases[url]);
-
-  });
 
 }
 

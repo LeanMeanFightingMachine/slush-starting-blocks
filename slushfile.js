@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var install = require('gulp-install');
-var conflict = require('gulp-conflict');
 var template = require('gulp-template');
 var inquirer = require('inquirer');
 var slug = require('slug');
@@ -10,6 +9,7 @@ var path = require('path');
 var questions = [
   { name: 'project', message: 'Project\'s name?', validate: isEmpty },
   { name: 'client', message: 'Client\'s name?', validate: isEmpty },
+  { name: 'es6', message: 'Use ES6 for this project?', type: 'confirm', default: false },
   { name: 'moveon', message: 'Continue?', type: 'confirm' }
 ];
 
@@ -36,6 +36,8 @@ function getShortName(obj) {
 
 gulp.task('default', function(done) {
 
+  var paths = [path.join(__dirname, '/template/**')];
+
   inquirer.prompt(questions, function(answers) {
 
     if (!answers.moveon) {
@@ -44,12 +46,17 @@ gulp.task('default', function(done) {
 
     }
 
+    if (answers.es6) {
+
+      paths.push(path.join(__dirname, '/template-es6/**'));
+
+    }
+
     answers.author = getAuthor();
     answers.shortName = getShortName(answers);
 
-    gulp.src(path.join(__dirname, '/template/**'), { dot: true })
+    gulp.src(paths, { dot: true })
       .pipe(template(answers))
-      .pipe(conflict('./'))
       .pipe(gulp.dest('./'))
       .pipe(install())
       .on('end', done)

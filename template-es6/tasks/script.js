@@ -14,10 +14,9 @@ var customOpts = {
   entries: ['./source/js/app.js'],
   debug: true
 };
-
 var opts = assign({}, watchify.args, customOpts);
 var b = watchify(browserify(opts));
-var firstRun = false;
+var firstRun = true;
 
 
 function bundle() {
@@ -25,6 +24,7 @@ function bundle() {
   if (firstRun) {
 
     firstRun = false;
+    b.transform('babelify');
     b.transform('ractivate');
     b.on('update', bundle);
     b.on('log', gutil.log);
@@ -51,6 +51,7 @@ bundle.build = function() {
 
   // we only need browserify for this task
   b = browserify(customOpts);
+  b.transform('babelify');
   b.transform('ractivate');
   b.on('log', gutil.log);
 
