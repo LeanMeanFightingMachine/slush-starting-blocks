@@ -1,6 +1,6 @@
 {
   "name": "slush-starting-blocks",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Front-end kickstarter with: JavaScript, Sass/SCSS, Browserify, Ractive and much more :)",
   "main": "gulpfile.js",
   "scripts": {
