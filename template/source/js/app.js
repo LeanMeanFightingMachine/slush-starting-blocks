@@ -1,4 +1,4 @@
-var domready = require("domready");
+var domready = require('domready');
 
 
 var app = {
@@ -14,13 +14,13 @@ var app = {
   /**
    * Renders a Ractive instance
    */
-  render: require("./view/main.js")
+  render: require('./view/main.js')
 
 };
 
 
 
-domready(function(){
+domready(function() {
 
   app.init();
   app.render();

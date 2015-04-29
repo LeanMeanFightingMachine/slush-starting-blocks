@@ -3,8 +3,10 @@
  * @scss:     {{paths.scss}}
  * @html:     {{paths.html}}
  */
-
-var Module = require('../abstract-module');
+{{#shouldExtend}}
+var Module = require('../{{nameExtend}}/{{nameExtend}}');{{/shouldExtend}}
+{{^shouldExtend}}
+var Module = require('../{{nameExtend}}');{{/shouldExtend}}
 
 module.exports = Module.extend({
 

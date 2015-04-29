@@ -4,6 +4,7 @@
  * @html:     {{paths.html}}
  */
 
-.{{name}} {
-
+{{#shouldExtend}}@include module("{{name}}", (extend:"{{nameExtend}}")) { {{/shouldExtend}}
+{{^shouldExtend}}@include module("{{name}}") { {{/shouldExtend}}
+  // :)
 }
