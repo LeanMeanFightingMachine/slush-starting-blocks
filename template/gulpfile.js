@@ -1,12 +1,10 @@
-'use strict';
-
-var gulp 	= require('gulp'),
-    script = require('./tasks/script'),
-    style = require('./tasks/style'),
-    test = require('./tasks/test'),
-    server = require('./tasks/server'),
-    watch = require('./tasks/watch'),
-    moduleTask = require('./tasks/module');
+var gulp 	= require('gulp');
+var script = require('./tasks/script');
+var style = require('./tasks/style');
+var test = require('./tasks/test');
+var server = require('./tasks/server');
+var watch = require('./tasks/watch');
+var moduleTask = require('./tasks/module');
 
 
 gulp.task('script', ['module:rebuild'], script);

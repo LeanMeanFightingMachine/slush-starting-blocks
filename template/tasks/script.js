@@ -35,6 +35,7 @@ function bundle() {
     ))
     .pipe(gulpif(customOpts.debug, sourcemaps.write('./')))
     .pipe(gulp.dest('./public/js'));
+
 }
 
 bundle.build = function() {
@@ -48,7 +49,7 @@ bundle.build = function() {
   b.on('log', gutil.log);
 
   return bundle();
-  
+
 };
 
 module.exports = bundle;

@@ -1,7 +1,7 @@
 var Ractive = require('ractive');
 require('../module');
 
-module.exports = function(data) {
+module.exports = function() {
 
   return new Ractive({
 

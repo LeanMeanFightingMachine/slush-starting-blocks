@@ -1,25 +1,35 @@
-var expand = require('glob-expand'),
-    fs = require('fs-extra'),
-    path = require('path'),
-    del = require('del'),
-    gulp = require('gulp'),
-    minstache = require('minstache'),
-    exec = require('child_process').execSync;
+var expand = require('glob-expand');
+var fs = require('fs-extra');
+var path = require('path');
+var del = require('del');
+var minstache = require('minstache');
+
 
 function resolve(p) {
+
   return path.resolve(process.cwd(), p);
+
 }
 
 function parseTemplate(extension, data, fileName) {
 
-  extension = '.' + (extension || 'html');
-  fileName = fileName || '_template';
-  var tpl = fs.readFileSync(__dirname + '/' + fileName + extension, 'utf-8');
+  var tpl;
+  var ext = '.' + (extension || 'html');
+  var name = fileName || '_template';
+
+  tpl = fs.readFileSync(path.join(__dirname, name + ext), 'utf-8');
   return minstache(tpl, data);
 
 }
 
 function task(cb) {
+
+  var name;
+  var nameExtend;
+  var nameSplit;
+  var shouldExtend;
+  var paths;
+  var data;
 
   var argv = require('yargs')
     .alias('a', 'add')
@@ -31,44 +41,54 @@ function task(cb) {
     .default('js', true)
     .argv;
 
-  if(!argv.add && !argv.remove) {
+
+  if (!argv.add && !argv.remove) {
+
     return cb(new Error('No parameters set. Try using "--add" or "--remove"'));
+
   }
 
-  var name = argv.add || argv.remove;
-  var nameExtend = 'abstract-module';
-  var shouldExtend = name.indexOf(':') > 0;
+  name = argv.add || argv.remove;
+  nameExtend = 'abstract-module';
+  shouldExtend = name.indexOf(':') > 0;
 
-  if(shouldExtend) {
+  if (shouldExtend) {
 
-    var nameSplit = name.split(':');
+    nameSplit = name.split(':');
     name = nameSplit[0];
     nameExtend = nameSplit[1];
 
   }
 
-  var paths = {
+  paths = {
     script: './source/js/module/' + name,
     html: './source/js/module/' + name + '/' + name + '.html',
     js: './source/js/module/' + name + '/' + name + '.js',
     scss: './source/css/module/' + name + '.scss'
   };
-  var data = {
+
+  data = {
     name: name, shouldExtend: shouldExtend, nameExtend: nameExtend, paths: paths
   };
 
-  if(argv.add) {
+  if (argv.add) {
 
-    if(argv.html) {
+    if (argv.html) {
+
       fs.outputFileSync(resolve(paths.html), parseTemplate('html', data));
+
     }
 
-    if(argv.js) {
+    if (argv.js) {
+
       fs.outputFileSync(resolve(paths.js), parseTemplate('js', data));
+
     }
 
-    if(argv.css) {
+    if (argv.css) {
+
       fs.outputFileSync(resolve(paths.scss), parseTemplate('scss', data));
+
     }
 
     cb();
@@ -79,12 +99,17 @@ function task(cb) {
 
   }
 
-};
+}
 
 task.rebuild = function(cb) {
 
-  var jsModules = expand({ filter: 'isFile' }, ['./source/js/module/*/*.js']);
-  var scssModules = expand({ filter: 'isFile' }, [
+  var jsModules;
+  var scssModules;
+  var jsData;
+  var scssData;
+
+  jsModules = expand({ filter: 'isFile' }, ['./source/js/module/*/*.js']);
+  scssModules = expand({ filter: 'isFile' }, [
     './source/css/module/*.scss', '!./source/css/module/index.scss'
   ]);
 
@@ -104,8 +129,8 @@ task.rebuild = function(cb) {
 
   });
 
-  var jsData = parseTemplate('js', { modules: jsModules }, '_index');
-  var scssData = parseTemplate('scss', { modules: jsModules }, '_index');
+  jsData = parseTemplate('js', { modules: jsModules }, '_index');
+  scssData = parseTemplate('scss', { modules: jsModules }, '_index');
 
   fs.outputFileSync(resolve('./source/js/module/index.js'), jsData);
   fs.outputFileSync(resolve('./source/css/module/index.scss'), scssData);

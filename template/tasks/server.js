@@ -1,6 +1,7 @@
 var browserSync = require('browser-sync').create();
 
 module.exports = function() {
+
   return browserSync.init({
     open: false,
     files: ['./public/css/*.css', './public/js/*.js', './public/*.html'],
@@ -8,4 +9,5 @@ module.exports = function() {
       baseDir: './public'
     }
   });
+
 };

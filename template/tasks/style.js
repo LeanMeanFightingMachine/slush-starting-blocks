@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var gulpif = require('gulp-if');
 var prefix = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
+// var sourcemaps = require('gulp-sourcemaps');
 var minify = require('gulp-minify-css');
 
 
@@ -17,28 +17,36 @@ var aliases = {};
  */
 function npmModule(url, file, done) {
 
+  var newPath;
+  var absolute;
+  var relative;
+
   // check if the path was already found and cached
-  if(aliases[url]) {
+  if (aliases[url]) {
+
     return done({ file: aliases[url] });
+
   }
 
   // look for SCSS modules installed through npm
   try {
 
-    var newPath = path.relative('./source/css', require.resolve(url));
+    newPath = path.relative('./source/css', require.resolve(url));
     aliases[url] = newPath;
     return done({ file: newPath });
 
-  } catch(e) { }
+  } catch (e) {
+    // continue
+  }
 
   // if not, try looking if the file inside the `node_modules` exists
-  var absolute = path.join(process.cwd(), 'node_modules', url);
-  var relative = path.relative('./source/css', absolute).replace(/\.css$/g, '');
-  fs.access(absolute, fs.R_OK, function(err, res) {
+  absolute = path.join(process.cwd(), 'node_modules', url);
+  relative = path.relative('./source/css', absolute).replace(/\.css$/g, '');
+  fs.access(absolute, fs.R_OK, function(err) {
 
     aliases[url] = err ? url : relative;
     done(aliases[url]);
-    
+
   });
 
 }
