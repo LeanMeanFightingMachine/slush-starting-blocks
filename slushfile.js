@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var install = require('gulp-install');
 var template = require('gulp-template');
+var rename = require('gulp-rename');
 var inquirer = require('inquirer');
 var slug = require('slug');
 var exec = require('child_process').execSync;
@@ -60,7 +61,7 @@ gulp.task('default', function(done) {
 
   inquirer.prompt(questions, function(answers) {
 
-    var paths = [path.join(__dirname, '/template/**')];
+    var paths = [path.join(__dirname, '/template/**'), '!**/*.DS_Store'];
 
     if (!answers.moveon) {
 
@@ -98,8 +99,14 @@ gulp.task('default', function(done) {
 
     gulp.src(paths, { dot: true })
       .pipe(template(answers))
+      .pipe(rename(function(file) {
+
+        // remove the underscore from all files
+        file.basename = file.basename.replace(/^_/g, '');
+
+      }))
       .pipe(gulp.dest('./'))
-      .pipe(install())
+      // .pipe(install())
       .on('end', done)
       .resume();
 

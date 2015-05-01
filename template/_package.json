@@ -1,40 +1,41 @@
 {
   "name": "<%= shortName %>",
   "version": "0.0.1",
-  "description": "<% project %> - <% client %>",
+  "description": "<%= project %> - <%= client %>",
   "main": "gulpfile.js",
   "private": true,
   "authors": [
     "<%= author %>"
   ],
   "devDependencies": {
-    "babelify": "^6.0.2",
     "beepbeep": "^1.2.0",
     "browser-sync": "^2.6.5",
+    "gulp": "^3.8.11",
+    "gulp-if": "^1.2.5",
+    "gulp-util": "^3.0.4",
+    "gulp-sourcemaps": "^1.5.2"<% if(css) { %>,
+    "gulp-autoprefixer": "^2.2.0",
+    "gulp-minify-css": "^1.1.0",
+    "gulp-sass": "dlmanning/gulp-sass#2.x",
+    "gulp-plumber": "^1.0.0"<% } if(js) { %>,
+    "babelify": "^6.0.2",
     "browserify": "^9.0.8",
     "change-case": "^2.3.0",
     "del": "^1.1.1",
     "fs-extra": "^0.18.2",
     "glob-expand": "^0.1.0",
-    "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^2.2.0",
     "gulp-eslint": "^0.11.1",
-    "gulp-if": "^1.2.5",
-    "gulp-minify-css": "^1.1.0",
-    "gulp-plumber": "^1.0.0",
-    "gulp-sass": "dlmanning/gulp-sass#2.x",
-    "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
-    "gulp-util": "^3.0.4",
     "minstache": "^1.2.0",
     "ractivate": "^0.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.0",
-    "yargs": "^3.8.0"
+    "yargs": "^3.8.0"<% } %>
   },
-  "dependencies": {
+  "dependencies": {<% if(js) { %>
     "domready": "^1.0.8",
+    "ractive": "^0.7.3"<% if(css) { %>,<% } %><% } if(css) { %>
     "inuit-box-sizing": "^0.2.0",
     "inuit-clearfix": "lucasmotta/trumps.clearfix",
     "inuit-defaults": "lucasmotta/settings.defaults",
@@ -59,7 +60,6 @@
     "inuit-shared": "^0.1.5",
     "inuit-spacing": "^0.7.0",
     "inuit-tools-widths": "^0.1.4",
-    "inuit-widths": "^0.4.2",
-    "ractive": "^0.7.3"
+    "inuit-widths": "^0.4.2"<% } %>
   }
 }

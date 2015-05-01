@@ -7,6 +7,7 @@ var files = [
   '!./template/package.json',
   './template/source/**/**.js',
   './template/tasks/*.js',
+  '!./template/tasks/_script.js',
   './template/tasks/module/index.js',
   './template-es6/tasks/*.js',
   './template-es6/source/**/**.js'

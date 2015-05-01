@@ -1,6 +1,7 @@
 var watchify = require('watchify');
 var browserify = require('browserify');
-var ractivate = require('ractivate');
+var ractivate = require('ractivate');<% if(es6) { %>
+var babelify = require('babelify');<% } %>
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
@@ -67,7 +68,8 @@ function bundle() {
 
   if (firstRun) {
 
-    b = opts.debug ? watchify(browserify(opts)) : browserify(opts);
+    b = opts.debug ? watchify(browserify(opts)) : browserify(opts);<% if(es6) { %>
+    b.transform(babelify);<% } %>
     b.transform(ractivate);
     b.on('update', bundle);
     b.on('log', gutil.log);
