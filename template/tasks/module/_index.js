@@ -1,12 +1,5 @@
 /*auto-generated*/
-var Ractive = require('ractive');
+var modules = {};
+{{#modules}}modules['ui-{{name}}'] = require('./{{file}}');{{/modules}}
 
-function register() {
-  {{#modules}}
-  Ractive.components['ui-{{name}}'] = require('./{{file}}');
-  {{/modules}}
-
-  return true;
-}
-
-module.exports = register();
+module.exports = modules;

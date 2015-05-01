@@ -1,58 +1,98 @@
 var watchify = require('watchify');
 var browserify = require('browserify');
+var ractivate = require('ractivate');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
-var assign = require('lodash.assign');
 var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
+var beep = require('beepbeep');
+var path = require('path');
 
-
-var customOpts = {
+var b;
+var firstRun = true;
+var opts = {
   entries: ['./source/js/app.js'],
-  debug: true
+  debug: true,
+  cache: {},
+  packageCache: {}
 };
 
-var opts = assign({}, watchify.args, customOpts);
-var b = watchify(browserify(opts));
-var firstRun = true;
+
+function errorHandler(err) {
+
+  var msg = err.toString();
+  var reg;
+  var match;
+  var matches;
+
+  if (err) {
+
+    msg = err.toString();
+
+    try {
+
+      reg = /Error:\s(.*)\s(\/.*):\W(.*)\W(\d+:\d+)/g;
+      matches = [];
+
+      while (match = reg.exec(msg)) {
+
+        matches.push(match);
+
+      }
+
+      matches = matches[0];
+
+      gutil.log(gutil.colors.red.bold('Error on Browserify:'));
+      console.log('   -', gutil.colors.underline(path.relative(process.cwd(), matches[2])), gutil.colors.gray('(' + matches[4] + ')'));
+      console.log('    ', matches[3]);
+
+    } catch (e) {
+
+      console.log(msg);
+
+    }
+
+  }
+
+  beep();
+  this.emit('end');
+
+}
 
 
 function bundle() {
 
   if (firstRun) {
 
-    firstRun = false;
-    b.transform('ractivate');
+    b = opts.debug ? watchify(browserify(opts)) : browserify(opts);
+    b.transform(ractivate);
     b.on('update', bundle);
     b.on('log', gutil.log);
+
+    firstRun = false;
 
   }
 
   return b.bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .on('error', errorHandler)
     .pipe(source('app.js'))
     .pipe(buffer())
-    .pipe(gulpif(customOpts.debug,
+    .pipe(gulpif(opts.debug,
       sourcemaps.init({ loadMaps: true }),
       uglify({ preserveComments: false })
     ))
-    .pipe(gulpif(customOpts.debug, sourcemaps.write('./')))
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(gulpif(opts.debug, sourcemaps.write('./')))
     .pipe(gulp.dest('./public/js'));
 
 }
 
 bundle.build = function() {
 
-  // no need for sourcemaps
-  customOpts.debug = false;
-
-  // we only need browserify for this task
-  b = browserify(customOpts);
-  b.transform('ractivate');
-  b.on('log', gutil.log);
+  opts.debug = false;
 
   return bundle();
 

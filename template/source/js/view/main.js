@@ -1,5 +1,5 @@
 var Ractive = require('ractive');
-require('../module');
+Ractive.components = require('../module');
 
 module.exports = function() {
 

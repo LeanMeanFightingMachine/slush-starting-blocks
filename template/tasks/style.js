@@ -5,7 +5,6 @@ var sass = require('gulp-sass');
 var gulpif = require('gulp-if');
 var prefix = require('gulp-autoprefixer');
 var minify = require('gulp-minify-css');
-var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
 var beep = require('beepbeep');
 
