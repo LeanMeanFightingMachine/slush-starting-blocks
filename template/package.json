@@ -1,7 +1,7 @@
 {
   "name": "<%= shortName %>",
   "version": "0.0.1",
-  "description": "",
+  "description": "<% project %> - <% client %>",
   "main": "gulpfile.js",
   "private": true,
   "authors": [

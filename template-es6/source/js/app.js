@@ -1,5 +1,5 @@
 import domready from 'domready';
-import mainView from './view/main';
+import MainView from './view/main';
 
 
 const app = {
@@ -17,7 +17,7 @@ const app = {
    */
   render() {
 
-    const view = mainView();
+    const view = new MainView();
 
   }
 

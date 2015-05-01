@@ -32,15 +32,31 @@ function task(cb) {
   var paths;
   var data;
 
-  var argv = require('yargs')
-    .alias('a', 'add')
-    .alias('r', 'remove')
-    .alias('d', 'remove')
+  var yargs = require('yargs');
+  var argv = yargs
+    .usage('Usage: gulp module [options]')
+    .alias('a', 'add').nargs('a', 1).describe('a', 'Add a new module')
+    .alias('r', 'remove').nargs('r', 1).describe('r', 'Remove a module')
+    .alias('d', 'remove').nargs('d', 1)
     .alias('delete', 'remove')
-    .default('css', true)
-    .default('html', true)
-    .default('js', true)
+    .alias('h', 'help').describe('h', 'Show this help info')
+    .default('css', true).describe('css', 'Use --no-css to ignore the SCSS creation')
+    .default('html', true).describe('html', 'Use --no-css to ignore the HTML creation')
+    .default('js', true).describe('js', 'Use --no-js to ignore the JavaScript creation')
+    .example('gulp module -a component', 'Add a new module named "component"')
+    .example('gulp module -a component:abstract-component', 'Add a new module named "component" that extends "abstract-component"')
+    .example('gulp module -a component --no-css', 'Add a new module named "component" without the SCSS file')
+    .example('gulp module -a component --no-js', 'Add a new module named "component" without the JavaScript file')
+    .example('gulp module -a component --no-html', 'Add a new module named "component" without the HTML file')
+    .example('gulp module -d component', 'Remove the "component" module.')
     .argv;
+
+  if (argv.help) {
+
+    console.log(yargs.help());
+    return cb();
+
+  }
 
 
   if (!argv.add && !argv.remove) {
@@ -119,7 +135,7 @@ task.rebuild = function(cb) {
     var file = path.relative('./source/js/module', url);
     var name = path.basename(file, '.js');
     var nameCamel = changeCase.camelCase(name);
-    return { name:name, nameCamel: nameCamel, file: file };
+    return { name: name, nameCamel: nameCamel, file: file };
 
   });
 
@@ -128,7 +144,7 @@ task.rebuild = function(cb) {
     var file = path.relative('./source/css/module', url);
     var name = path.basename(file, '.scss');
     var nameCamel = changeCase.camelCase(name);
-    return { name:name, nameCamel: nameCamel, file: file };
+    return { name: name, nameCamel: nameCamel, file: file };
 
   });
 

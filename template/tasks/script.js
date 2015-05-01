@@ -17,7 +17,7 @@ var customOpts = {
 
 var opts = assign({}, watchify.args, customOpts);
 var b = watchify(browserify(opts));
-var firstRun = false;
+var firstRun = true;
 
 
 function bundle() {

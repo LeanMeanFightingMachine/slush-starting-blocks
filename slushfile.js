@@ -9,7 +9,29 @@ var path = require('path');
 var questions = [
   { name: 'project', message: 'Project\'s name?', validate: isEmpty },
   { name: 'client', message: 'Client\'s name?', validate: isEmpty },
-  { name: 'es6', message: 'Use ES6 for this project?', type: 'confirm', default: false },
+  {
+    name: 'css',
+    message: 'Will you need SCSS?',
+    type: 'confirm',
+    default: true
+  },
+  {
+    name: 'js',
+    message: 'Will you need JavaScript?',
+    type: 'confirm',
+    default: true
+  },
+  {
+    name: 'es6',
+    message: 'Use ES6 for this project?',
+    type: 'confirm',
+    default: false,
+    when: function(answers) {
+
+      return answers.js;
+
+    }
+  },
   { name: 'moveon', message: 'Continue?', type: 'confirm' }
 ];
 
@@ -36,9 +58,9 @@ function getShortName(obj) {
 
 gulp.task('default', function(done) {
 
-  var paths = [path.join(__dirname, '/template/**')];
-
   inquirer.prompt(questions, function(answers) {
+
+    var paths = [path.join(__dirname, '/template/**')];
 
     if (!answers.moveon) {
 
@@ -49,6 +71,25 @@ gulp.task('default', function(done) {
     if (answers.es6) {
 
       paths.push(path.join(__dirname, '/template-es6/**'));
+
+    }
+
+    if (!answers.js) {
+
+      paths.push('!' + path.join(__dirname, '/template/source/js/**'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/module/**'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/script.js'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/test.js'));
+      paths.push('!' + path.join(__dirname, '/template/.jscsrc'));
+      paths.push('!' + path.join(__dirname, '/template/.eslintrc'));
+
+    }
+
+    if (!answers.css) {
+
+      paths.push('!' + path.join(__dirname, '/template/source/css/**'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/style.js'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/watch.js'));
 
     }
 

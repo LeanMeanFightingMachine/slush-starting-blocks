@@ -2,26 +2,22 @@ import Ractive from 'ractive';
 import RactiveModules from '../module';
 import template from './main.html';
 
-export default function() {
+export default Ractive.extend({
 
-  return new Ractive({
+  el: document.querySelector('.main'),
 
-    el: document.querySelector('.main'),
+  template: template,
 
-    template: template,
+  data: {
+  },
 
-    data: {
-    },
+  computed: {
+  },
 
-    computed: {
-    },
+  oninit() {
+  },
 
-    oninit() {
-    },
+  onrender() {
+  }
 
-    onrender() {
-    }
-
-  });
-
-}
+});
