@@ -106,7 +106,7 @@ gulp.task('default', function(done) {
 
       }))
       .pipe(gulp.dest('./'))
-      // .pipe(install())
+      .pipe(install())
       .on('end', done)
       .resume();
 
