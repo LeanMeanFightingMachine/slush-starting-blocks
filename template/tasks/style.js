@@ -4,8 +4,10 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var gulpif = require('gulp-if');
 var prefix = require('gulp-autoprefixer');
-// var sourcemaps = require('gulp-sourcemaps');
 var minify = require('gulp-minify-css');
+var gutil = require('gulp-util');
+var plumber = require('gulp-plumber');
+var beep = require('beepbeep');
 
 
 var debug = true;
@@ -52,14 +54,20 @@ function npmModule(url, file, done) {
 }
 
 
+function errorHandler(err) {
+
+  console.log(err.toString(), '\n');
+  beep();
+  this.emit('end');
+
+}
+
+
 function bundle() {
 
   return gulp.src('./source/css/app.scss')
-
-    // .pipe(sourcemaps.init())
+    .pipe(plumber(errorHandler))
     .pipe(sass({ importer: npmModule }))
-
-    // .pipe(sourcemaps.write())
     .pipe(prefix({ browsers: ['last 2 versions', 'ie 9'] }))
     .pipe(gulpif(!debug, minify({ keepSpecialComments: false })))
     .pipe(gulp.dest('./public/css'));
