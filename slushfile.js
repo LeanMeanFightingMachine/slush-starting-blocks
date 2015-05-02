@@ -77,10 +77,10 @@ gulp.task('default', function(done) {
 
     if (!answers.js) {
 
-      paths.push('!' + path.join(__dirname, '/template/source/js/**'));
-      paths.push('!' + path.join(__dirname, '/template/tasks/module/**'));
-      paths.push('!' + path.join(__dirname, '/template/tasks/script.js'));
-      paths.push('!' + path.join(__dirname, '/template/tasks/test.js'));
+      paths.push('!' + path.join(__dirname, '/template/source/js'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/module'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/_script.js'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/_test.js'));
       paths.push('!' + path.join(__dirname, '/template/.jscsrc'));
       paths.push('!' + path.join(__dirname, '/template/.eslintrc'));
 
@@ -88,9 +88,9 @@ gulp.task('default', function(done) {
 
     if (!answers.css) {
 
-      paths.push('!' + path.join(__dirname, '/template/source/css/**'));
-      paths.push('!' + path.join(__dirname, '/template/tasks/style.js'));
-      paths.push('!' + path.join(__dirname, '/template/tasks/watch.js'));
+      paths.push('!' + path.join(__dirname, '/template/source/css'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/_style.js'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/_watch.js'));
 
     }
 
