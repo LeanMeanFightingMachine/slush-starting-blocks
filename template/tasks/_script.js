@@ -9,6 +9,7 @@ var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
+var size = require('gulp-size');
 var beep = require('beepbeep');
 var path = require('path');
 
@@ -88,6 +89,7 @@ function bundle() {
     ))
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(gulpif(opts.debug, sourcemaps.write('./')))
+    .pipe(size({ showFiles: true }))
     .pipe(gulp.dest('./public/js'));
 
 }
