@@ -87,8 +87,7 @@ function bundle() {
       sourcemaps.init({ loadMaps: true }),
       uglify({ preserveComments: false })
     ))
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(gulpif(opts.debug, sourcemaps.write('./')))
+    .pipe(gulpif(opts.debug, sourcemaps.write('.')))
     .pipe(size({ showFiles: true }))
     .pipe(gulp.dest('./public/js'));
 
