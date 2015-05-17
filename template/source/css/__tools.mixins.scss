@@ -66,6 +66,8 @@
 @mixin position($position, $args: (), $includeSize: false) {
   $offsets: top right bottom left;
 
+  position: $position;
+
   @if $includeSize {
     $offsets: join($offsets, (width height));
   }
