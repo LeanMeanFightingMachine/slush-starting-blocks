@@ -1,0 +1,5 @@
+@import "tools.mixins.scss";
+
+div {
+  @include pseudo-content(before);
+}

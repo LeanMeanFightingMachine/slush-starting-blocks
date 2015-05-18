@@ -21,3 +21,5 @@ Thumbs.db
 node_modules/
 vendor/
 *.map
+.sass-cache
+npm-debug.log

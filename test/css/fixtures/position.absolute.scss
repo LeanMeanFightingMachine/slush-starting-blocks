@@ -1,0 +1,5 @@
+@import "tools.mixins.scss";
+
+div.absolute {
+  @include absolute(top 50px left 50px);
+}

@@ -1,0 +1,5 @@
+@import "tools.mixins.scss";
+
+div.fixed {
+  @include fixed(bottom 50px right 50px);
+}

@@ -1,0 +1,4 @@
+@import "settings.global";
+@import "tools.mixins.scss";
+
+@include font-face("Font Name", "font-name", normal, normal);

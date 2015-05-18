@@ -77,8 +77,8 @@ gulp.task('default', function(done) {
 
     if (!answers.js) {
 
-      paths.push('!' + path.join(__dirname, '/template/source/js'));
-      paths.push('!' + path.join(__dirname, '/template/tasks/module'));
+      paths.push('!' + path.join(__dirname, '/template/source/js/**/**'));
+      paths.push('!' + path.join(__dirname, '/template/tasks/module/**/**'));
       paths.push('!' + path.join(__dirname, '/template/tasks/_script.js'));
       paths.push('!' + path.join(__dirname, '/template/tasks/_test.js'));
       paths.push('!' + path.join(__dirname, '/template/.jscsrc'));
@@ -88,7 +88,7 @@ gulp.task('default', function(done) {
 
     if (!answers.css) {
 
-      paths.push('!' + path.join(__dirname, '/template/source/css'));
+      paths.push('!' + path.join(__dirname, '/template/source/css/**/**'));
       paths.push('!' + path.join(__dirname, '/template/tasks/_style.js'));
       paths.push('!' + path.join(__dirname, '/template/tasks/_watch.js'));
 
@@ -101,8 +101,12 @@ gulp.task('default', function(done) {
       .pipe(template(answers))
       .pipe(rename(function(file) {
 
-        // remove the underscore from all files
-        file.basename = file.basename.replace(/^_/g, '');
+        // remove the underscore from all files except SCSS files
+        if (file.extname !== '.scss') {
+
+          file.basename = file.basename.replace(/^_/g, '');
+
+        }
 
       }))
       .pipe(gulp.dest('./'))

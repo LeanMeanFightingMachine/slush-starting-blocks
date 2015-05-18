@@ -1,0 +1,5 @@
+@import "tools.mixins.scss";
+
+div.relative {
+  @include relative(left 100% top -100%);
+}

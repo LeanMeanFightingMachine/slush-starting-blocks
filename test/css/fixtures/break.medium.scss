@@ -1,0 +1,8 @@
+@import "settings.breakpoint";
+@import "tools.mixins.scss";
+
+div {
+  @include break(medium) {
+    content: "medium only";
+  }
+}
