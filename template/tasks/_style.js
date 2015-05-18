@@ -68,12 +68,12 @@ function bundle() {
 
   return gulp.src('./source/css/app.scss')
     .pipe(plumber(errorHandler))
-    .pipe(sourcemaps.init())
+    .pipe(gulpif(debug, sourcemaps.init()))
     .pipe(sass({ importer: npmModule }))
-    .pipe(sourcemaps.write({includeContent: false}))
-    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(gulpif(debug, sourcemaps.write({includeContent: false})))
+    .pipe(gulpif(debug, sourcemaps.init({loadMaps: true})))
     .pipe(prefix({ browsers: ['last 2 versions', 'ie 9'] }))
-    .pipe(sourcemaps.write('.'))
+    .pipe(gulpif(debug, sourcemaps.write('.'), minify()))
     .pipe(size({ showFiles: true }))
     .pipe(gulp.dest('./public/css'));
 

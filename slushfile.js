@@ -23,6 +23,17 @@ var questions = [
     default: true
   },
   {
+    name: 'node',
+    message: 'Will you need Node.js?',
+    type: 'confirm',
+    default: true,
+    when: function(answers) {
+
+      return answers.js;
+
+    }
+  },
+  {
     name: 'es6',
     message: 'Use ES6 for this project?',
     type: 'confirm',
@@ -66,6 +77,12 @@ gulp.task('default', function(done) {
     if (!answers.moveon) {
 
       return done();
+
+    }
+
+    if (answers.node) {
+
+      paths.push(path.join(__dirname, '/template-node/**'));
 
     }
 
