@@ -149,7 +149,7 @@ task.rebuild = function(cb) {
   });
 
   jsData = parseTemplate('js', { modules: jsModules }, '_index');
-  scssData = parseTemplate('scss', { modules: jsModules }, '_index');
+  scssData = parseTemplate('scss', { modules: scssModules }, '_index');
 
   fs.outputFileSync(resolve('./source/js/module/index.js'), jsData);
   fs.outputFileSync(resolve('./source/css/module/index.scss'), scssData);
