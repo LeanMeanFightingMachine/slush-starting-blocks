@@ -1,7 +1,7 @@
 /*auto-generated*/
+import Ractive from 'ractive';
 {{#modules}}import {{nameCamel}} from './{{file}}';
 {{/modules}}
-var modules = {};
-{{#modules}}modules['ui-{{name}}'] = {{nameCamel}};
+{{#modules}}Ractive.components['ui-{{name}}'] = {{nameCamel}};
 {{/modules}}
-export default modules;
+export default Ractive;
