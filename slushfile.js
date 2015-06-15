@@ -74,6 +74,9 @@ gulp.task('default', function(done) {
 
     var paths = [path.join(__dirname, '/template/**'), '!**/*.DS_Store'];
 
+    answers.node = answers.node || false;
+    answers.es6 = answers.es6 || false;
+
     if (!answers.moveon) {
 
       return done();
