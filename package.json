@@ -30,7 +30,8 @@
     "slug": "^0.9.1"
   },
   "devDependencies": {
-    "chai": "^2.3.0",
+    "chai": "^3.0.x",
+    "chai": "carrot/chai-fs.git#version-bump",
     "gulp-bump": "^0.3.0",
     "gulp-eslint": "^0.11.1",
     "gulp-git": "^1.2.1",
